@@ -2,11 +2,9 @@ from typing import Tuple
 from scrapy.spiders import SitemapSpider
 from scrapy.http import Request
 import logging
-from loguru import logger
 from biobio.items import BiobioItem
 import re
 from scrapy.selector.unified import SelectorList
-from loguru import logger
 
 
 logger = logging.getLogger(__name__)
