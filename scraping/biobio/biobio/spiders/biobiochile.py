@@ -1,14 +1,6 @@
-from typing import Tuple
 from scrapy.spiders import SitemapSpider
 from scrapy.http import Request
-import logging
-from biobio.items import BiobioItem
 import re
-from scrapy.selector.unified import SelectorList
-
-
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
 
 
 class SiteMapBiobioChile(SitemapSpider):

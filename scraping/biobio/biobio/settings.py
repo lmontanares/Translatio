@@ -1,3 +1,5 @@
+from pathlib import Path
+
 # Scrapy settings for biobio project
 #
 # For simplicity, this file contains only settings considered important or
@@ -68,9 +70,9 @@ DOWNLOADER_MIDDLEWARES = {
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-ITEM_PIPELINES = {
-    "biobio.pipelines.BiobioPipeline": 300,
-}
+# ITEM_PIPELINES = {
+#     "biobio.pipelines.BiobioPipeline": 300,
+# }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
@@ -98,9 +100,11 @@ REQUEST_FINGERPRINTER_IMPLEMENTATION = "2.7"
 TWISTED_REACTOR = "twisted.internet.asyncioreactor.AsyncioSelectorReactor"
 FEED_EXPORT_ENCODING = "utf-8"
 
+DATA_PATH = Path(__file__).parent / "data"
 
 FEEDS = {
-    "items.json": {
+    DATA_PATH
+    / "items.json": {
         "format": "jsonlines",
         "encoding": "utf-8",
         "fields": ["title", "url", "date", "category", "view_count"],
@@ -108,7 +112,8 @@ FEEDS = {
         "overwrite": True,
         "store_empty": False,
     },
-    "items.csv": {
+    DATA_PATH
+    / "items.csv": {
         "format": "csv",
         "encoding": "utf-8",
         "fields": ["title", "url", "date", "category", "view_count"],
@@ -131,4 +136,4 @@ RANDOM_UA_PER_PROXY = True
 
 
 LOG_ENABLED = True
-LOG_FILE = "biobio_scrapy.log"
+LOG_FILE = "biobio/data/biobio_scrapy.log"

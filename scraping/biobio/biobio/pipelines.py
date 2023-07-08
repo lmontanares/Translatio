@@ -6,12 +6,16 @@
 
 # useful for handling different item types with a single interface
 from itemadapter import ItemAdapter
+from pathlib import Path
 import sqlite3
+from settings import DATA_PATH
+
+DATA_PATH.as_posix()
 
 
 class BiobioPipeline:
     def open_spider(self, spider):
-        with sqlite3.connect("biobio.db") as self.con:
+        with sqlite3.connect(DATA_PATH.as_posix() / "biobio.db") as self.con:
             self.cur = self.con.cursor()
             self.cur.execute("""DROP TABLE IF EXISTS noticia""")
             self.cur.execute(

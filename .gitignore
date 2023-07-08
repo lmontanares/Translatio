@@ -221,3 +221,4 @@ $RECYCLE.BIN/
 *items.csv
 *items.json
 *.db
+data/
