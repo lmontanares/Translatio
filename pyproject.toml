@@ -12,6 +12,7 @@ scrapy = "^2.9.0"
 scrapy-fake-useragent = "^1.4.4"
 pandas = "^2.0.3"
 scrapy-sql = "^1.0.0"
+pytest = "^7.4.0"
 
 
 [build-system]
