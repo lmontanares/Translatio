@@ -12,7 +12,7 @@ import sqlite3
 
 class BiobioPipeline:
     def open_spider(self, spider):
-        with sqlite3.connect("/opt/scraped_data/biobio.db") as self.con:
+        with sqlite3.connect("biobio.db") as self.con:
             self.cur = self.con.cursor()
             self.cur.execute("""DROP TABLE IF EXISTS news""")
             self.cur.execute(

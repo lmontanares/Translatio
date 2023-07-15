@@ -100,12 +100,9 @@ REQUEST_FINGERPRINTER_IMPLEMENTATION = "2.7"
 TWISTED_REACTOR = "twisted.internet.asyncioreactor.AsyncioSelectorReactor"
 FEED_EXPORT_ENCODING = "utf-8"
 
-DATA_PATH = Path(__file__).parent / "data"
 
 FEEDS = {
-    # DATA_PATH
-    # / "items.json": {
-    "/opt/scraped_data/items.json": {
+    "items.json": {
         "format": "jsonlines",
         "encoding": "utf-8",
         "fields": ["title", "url", "date", "category", "view_count"],
@@ -113,9 +110,7 @@ FEEDS = {
         "overwrite": True,
         "store_empty": False,
     },
-    # DATA_PATH
-    # / "items.csv": {
-    "/opt/scraped_data/items.csv": {
+    "items.csv": {
         "format": "csv",
         "encoding": "utf-8",
         "fields": ["title", "url", "date", "category", "view_count"],
