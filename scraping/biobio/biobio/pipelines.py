@@ -12,11 +12,11 @@ import sqlite3
 
 class BiobioPipeline:
     def open_spider(self, spider):
-        with sqlite3.connect("biobio/data/biobio.db") as self.con:
+        with sqlite3.connect("../data/biobio.db") as self.con:
             self.cur = self.con.cursor()
-            self.cur.execute("""DROP TABLE IF EXISTS noticia""")
+            self.cur.execute("""DROP TABLE IF EXISTS news""")
             self.cur.execute(
-                """CREATE TABLE noticia (url text, title text, category text, date text, view_count text)"""
+                """CREATE TABLE news (url text UNIQUE, title text, category text, date text, view_count text)"""
             )
 
     def close_spider(self, spider):
@@ -26,7 +26,7 @@ class BiobioPipeline:
         try:
             with self.con:
                 self.cur.execute(
-                    """INSERT INTO noticia (url, title, category, date, view_count) VALUES (?, ?, ?, ?, ?)""",
+                    """INSERT INTO news (url, title, category, date, view_count) VALUES (?, ?, ?, ?, ?)""",
                     (
                         item["url"],
                         item["title"],

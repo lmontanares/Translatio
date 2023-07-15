@@ -1,5 +1,5 @@
 from scrapy.spiders import SitemapSpider
-from scrapy.http import Request
+from scrapy.http import Request, Response
 import re
 
 
@@ -13,7 +13,7 @@ class SiteMapBiobioChile(SitemapSpider):
     ]
     custom_settings = {"REDIRECT_ENABLED": True}
 
-    def parse(self, response):
+    def parse(self, response: Response):
         self.logger.info(
             f"[Translatio] Parse function called on {response.url}"
         )

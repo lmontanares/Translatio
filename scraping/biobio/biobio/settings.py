@@ -136,4 +136,6 @@ RANDOM_UA_PER_PROXY = True
 
 
 LOG_ENABLED = True
-LOG_FILE = "biobio/data/biobio_scrapy.log"
+# LOG_FILE = "biobio_scrapy.log"
+
+# DEPTH_LIMIT = 2
