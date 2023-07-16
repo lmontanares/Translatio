@@ -20,6 +20,7 @@ class BioBioCrawlSpider(CrawlSpider):
     allowed_domains = ["biobiochile.cl"]
     start_urls = ["https://www.biobiochile.cl"]
     rules = (
+        Rule(LinkExtractor(allow=(r"",))),
         Rule(
             LinkExtractor(allow=(r"noticias",)),
             callback="parse_items",
