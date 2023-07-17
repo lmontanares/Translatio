@@ -7,7 +7,7 @@ if [[ $EUID -ne 0 ]]; then
 fi
 
 # Define directories
-log_dir="/var/log/scrapy"
+log_dir="/var/log/translatio-scrapy"
 data_dir="/opt/scraped_data"
 
 # Create the directories if they do not exist
