@@ -5,7 +5,7 @@
 cd /home/somebody/dev/Translatio/scraping/biobio || exit
 
 # Truncate the log file
-truncate -s 0 /var/log/scrapy/scrapy.log
+truncate -s 0 /var/log/translatio-scrapy/scrapy.log
 
 # Start the crawler with logging enabled
 nohup poetry run python -m scrapy crawl biobio_crawler -L DEBUG -s LOG_FILE=/var/log/translatio-scrapy/scrapy.log >/dev/null 2>&1 &
