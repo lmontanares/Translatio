@@ -4,15 +4,7 @@ from scrapy.linkextractors import LinkExtractor
 from scrapy.http import Request, Response
 from scrapy.spiders import CrawlSpider, Rule
 from scrapy.linkextractors import LinkExtractor
-from scrapy.item import Item, Field
-
-
-class BioBioItem(Item):
-    url = Field()
-    title = Field()
-    category = Field()
-    date = Field()
-    view_count = Field()
+from biobio.items import BioBioItem
 
 
 class BioBioCrawlSpider(CrawlSpider):
@@ -20,13 +12,17 @@ class BioBioCrawlSpider(CrawlSpider):
     allowed_domains = ["biobiochile.cl"]
     start_urls = ["https://www.biobiochile.cl"]
     rules = (
-        Rule(LinkExtractor(allow=(r"",))),
         Rule(
-            LinkExtractor(allow=(r"noticias",)),
+            LinkExtractor(
+                allow=(r"noticias",),
+            ),
             callback="parse_items",
             follow=True,
         ),
     )
+
+    def parse_category(self, response: Response):
+        pass
 
     def parse_items(self, response: Response):
         self.logger.info(
@@ -34,7 +30,6 @@ class BioBioCrawlSpider(CrawlSpider):
         )
         item = BioBioItem()
         item["url"] = response.url
-        # item["title"] = response.css("title::text").get()
         item["title"] = response.css("title::text").get().strip()
         regex = re.search(r"(\D*)(/\d{4}/\d{2}/\d{2})", response.url)
         item["category"] = "/".join(regex.group(1).split("/")[3:])
@@ -46,8 +41,7 @@ class BioBioCrawlSpider(CrawlSpider):
         yield request
 
     def parse_api_response(self, response: Response):
-        item = response.meta["item"]
-        # item["view_count"] = response.text
+        item: BioBioItem = response.meta["item"]
         item["view_count"] = response.text.split(":")[-1][:-2]
-        self.logger.info(f"[Translatio] Item Parsed: {item}")
+        self.logger.info(f"[Translatio] Scraped Item: {item}")
         yield item

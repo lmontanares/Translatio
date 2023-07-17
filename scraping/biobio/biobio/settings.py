@@ -100,9 +100,8 @@ REQUEST_FINGERPRINTER_IMPLEMENTATION = "2.7"
 TWISTED_REACTOR = "twisted.internet.asyncioreactor.AsyncioSelectorReactor"
 FEED_EXPORT_ENCODING = "utf-8"
 
-
 FEEDS = {
-    "items.json": {
+    "/opt/scraped_data/items.json": {
         "format": "jsonlines",
         "encoding": "utf-8",
         "fields": ["title", "url", "date", "category", "view_count"],
@@ -110,7 +109,7 @@ FEEDS = {
         "overwrite": True,
         "store_empty": False,
     },
-    "items.csv": {
+    "/opt/scraped_data/items.csv": {
         "format": "csv",
         "encoding": "utf-8",
         "fields": ["title", "url", "date", "category", "view_count"],
@@ -133,6 +132,6 @@ RANDOM_UA_PER_PROXY = True
 
 
 LOG_ENABLED = True
-LOG_FILE = "/var/log/scrapy.log"
+LOG_FILE = "/var/log/translatio-scrapy/scrapy.log"
 
 # DEPTH_LIMIT = 2
