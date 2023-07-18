@@ -12,34 +12,57 @@ import sqlite3
 
 class BiobioPipeline:
     def open_spider(self, spider):
-        with sqlite3.connect("/opt/scraped_data/biobio.db") as self.con:
-            self.cur = self.con.cursor()
-            self.cur.execute("""DROP TABLE IF EXISTS news""")
-            self.cur.execute(
-                """CREATE TABLE news (url text UNIQUE, title text, category text, date text, view_count text)"""
-            )
+        self.con = sqlite3.connect("/opt/scraped_data/biobio.db")
+        self.cur = self.con.cursor()
+
+        # Check if the 'news' table exists, create it if not
+        self.cur.execute(
+            """
+            CREATE TABLE IF NOT EXISTS news
+            (url text UNIQUE, title text, category text, date text, view_count text)
+            """
+        )
 
     def close_spider(self, spider):
         self.con.close()
 
     def process_item(self, item, spider):
         try:
-            with self.con:
-                self.cur.execute(
-                    """INSERT INTO news (url, title, category, date, view_count) VALUES (?, ?, ?, ?, ?)""",
-                    (
-                        item["url"],
-                        item["title"],
-                        item["category"],
-                        item["date"],
-                        item["view_count"],
-                    ),
+            self.cur.execute(
+                "SELECT 1 FROM news WHERE url = ?", (item["url"],)
+            )
+            row_exists = self.cur.fetchone() is not None
+
+            self.cur.execute(
+                """
+                INSERT INTO news (url, title, category, date, view_count)
+                VALUES (?, ?, ?, ?, ?)
+                ON CONFLICT(url) DO UPDATE SET
+                title = excluded.title,
+                category = excluded.category,
+                date = excluded.date,
+                view_count = excluded.view_count
+                """,
+                (
+                    item["url"],
+                    item["title"],
+                    item["category"],
+                    item["date"],
+                    item["view_count"],
+                ),
+            )
+            self.con.commit()
+            if row_exists:
+                spider.logger.info(
+                    f"[Translatio] Item updated in SQLITE3 {item}"
                 )
+            else:
                 spider.logger.info(
                     f"[Translatio] Item inserted into SQLITE3 {item}"
                 )
+
         except Exception as e:
             spider.logger.error(
-                f"[Translatio] Failed to insert item into database: {e}"
+                f"[Translatio] Failed to insert or update item into database: {e}"
             )
         return item
