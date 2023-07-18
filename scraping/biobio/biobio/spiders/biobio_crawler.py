@@ -14,7 +14,7 @@ class BioBioCrawlSpider(CrawlSpider):
     rules = (
         Rule(
             LinkExtractor(
-                allow=(r"noticias",),
+                allow=(r"/noticias/",),
             ),
             callback="parse_items",
             follow=True,
@@ -24,6 +24,7 @@ class BioBioCrawlSpider(CrawlSpider):
     def parse_category(self, response: Response):
         pass
 
+    
     def parse_items(self, response: Response):
         self.logger.info(
             f"[Translatio] Parse function called on {response.url}"
