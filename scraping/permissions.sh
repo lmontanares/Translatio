@@ -9,10 +9,14 @@ fi
 # Define directories
 log_dir="/var/log/translatio-scrapy"
 data_dir="/opt/scraped_data"
+data_dir_csv="/opt/scraped_data/csv"
+data_dir_json="/opt/scraped_data/json"
 
 # Create the directories if they do not exist
 mkdir -p "$log_dir"
 mkdir -p "$data_dir"
+mkdir -p "$data_dir_csv"
+mkdir -p "$data_dir_json"
 
 # Change ownership to the current user and group
 chown -R "$SUDO_USER":"$SUDO_USER" "$log_dir"

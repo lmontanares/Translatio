@@ -1,3 +1,4 @@
+import time
 from pathlib import Path
 
 # Scrapy settings for biobio project
@@ -100,21 +101,24 @@ REQUEST_FINGERPRINTER_IMPLEMENTATION = "2.7"
 TWISTED_REACTOR = "twisted.internet.asyncioreactor.AsyncioSelectorReactor"
 FEED_EXPORT_ENCODING = "utf-8"
 
+today = time.strftime("%Y-%m-%d")
+
+
 FEEDS = {
-    "/opt/scraped_data/items.json": {
+    f"/opt/scraped_data/json/items.{today}.json": {
         "format": "jsonlines",
         "encoding": "utf-8",
         "fields": ["title", "url", "date", "category", "view_count"],
         "indent": 4,
-        "overwrite": True,
+        "overwrite": False,
         "store_empty": False,
     },
-    "/opt/scraped_data/items.csv": {
+    f"/opt/scraped_data/csv/items.{today}.csv": {
         "format": "csv",
         "encoding": "utf-8",
         "fields": ["title", "url", "date", "category", "view_count"],
         "indent": 4,
-        "overwrite": True,
+        "overwrite": False,
         "store_empty": False,
     },
 }
