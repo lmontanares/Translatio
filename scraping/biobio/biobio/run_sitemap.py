@@ -5,13 +5,9 @@ from scrapy.utils.project import get_project_settings
 from spiders.biobio_sitemap import SiteMapBioBioChile
 from datetime import datetime
 
-# from scrapy.utils.asyncgen
-# asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy()
-# install_reactor('twisted.internet.asyncioreactor.AsyncioSelectorReactor')
 settings = get_project_settings()
 configure_logging(settings)
 runner = CrawlerRunner(settings)
-
 
 sitemap_follow = [
     "2023",
@@ -43,13 +39,4 @@ def crawl():
 
 
 crawl()
-reactor.run()  # the script will block here until the last crawl call is finished
-
-
-# process = CrawlerProcess(
-#     settings={
-#         "FEEDS": {
-#             "items.json": {"format": "json"},
-#         },
-#     }
-# )
+reactor.run()
