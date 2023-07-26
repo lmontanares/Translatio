@@ -5,6 +5,7 @@ from scrapy.utils.project import get_project_settings
 from spiders.biobio_sitemap import SiteMapBioBioChile
 from datetime import datetime
 
+
 settings = get_project_settings()
 configure_logging(settings)
 runner = CrawlerRunner(settings)

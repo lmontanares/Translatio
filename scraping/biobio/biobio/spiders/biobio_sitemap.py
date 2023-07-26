@@ -8,9 +8,7 @@ class SiteMapBioBioChile(SitemapSpider):
     name = "biobio_sitemap"
     allowed_domains = ["biobiochile.cl"]
     sitemap_urls = ["https://www.biobiochile.cl/static/sitemap.xml"]
-    # sitemap_follow = [
-    #     "2023",
-    # ]
+
     sitemap_rules = [
         (r"/noticias/", "parse"),
     ]
