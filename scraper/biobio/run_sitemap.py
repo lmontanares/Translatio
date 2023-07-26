@@ -35,7 +35,7 @@ def crawl():
             "LOG_FILE"
         ] = f"/var/log/translatio-scrapy/scrapy_{datetime.today().strftime('%Y-%m-%d')}.log"
         yield runner.crawl(SiteMapBioBioChile, sitemap_follow=[follow])
-        reactor.stop()
+    reactor.stop()
 
 
 crawl()
