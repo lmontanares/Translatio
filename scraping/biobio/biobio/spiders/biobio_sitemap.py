@@ -1,30 +1,16 @@
 from scrapy.spiders import SitemapSpider
 from scrapy.http import Request, Response
 import re
-from biobio.items import BioBioItem
+from items import BioBioItem
 
 
 class SiteMapBioBioChile(SitemapSpider):
-    name = "biobiochile_sitemap"
+    name = "biobio_sitemap"
     allowed_domains = ["biobiochile.cl"]
     sitemap_urls = ["https://www.biobiochile.cl/static/sitemap.xml"]
-    sitemap_follow = [
-        "2023",
-        "2022",
-        "2021",
-        "2020",
-        "2019",
-        "2018",
-        "2017",
-        "2016",
-        "2015",
-        "2014",
-        "2013",
-        "2012",
-        "2011",
-        "2010",
-        "2009",
-    ]
+    # sitemap_follow = [
+    #     "2023",
+    # ]
     sitemap_rules = [
         (r"/noticias/", "parse"),
     ]
@@ -37,7 +23,6 @@ class SiteMapBioBioChile(SitemapSpider):
         )
         item = BioBioItem()
         item["url"] = response.url
-        # item["title"] = response.css("title::text").get()
         item["title"] = response.css("title::text").get().strip()
         regex = re.search(r"(\D*)(/\d{4}/\d{2}/\d{2})", response.url)
         item["category"] = "/".join(regex.group(1).split("/")[3:])
