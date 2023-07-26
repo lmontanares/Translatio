@@ -22,9 +22,9 @@ class BioBioCrawlSpider(CrawlSpider):
     )
 
     def parse_category(self, response: Response):
+        # TODO: Implement this function
         pass
 
-    
     def parse_items(self, response: Response):
         self.logger.info(
             f"[Translatio] Parse function called on {response.url}"
