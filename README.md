@@ -7,5 +7,5 @@ El script permissions.sh es una utilidad para los permisos de escritura a la car
 Dentro del ambiente virtual (venv - poetry), ejecutar el siguiente comando:
 
 ```bash
-python scraping/biobio/biobio/run_sitemap.py
+python scraper/biobio/run_sitemap.py
 ```
